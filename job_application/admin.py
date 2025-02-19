@@ -5,5 +5,6 @@ class AdminForm(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "email")
     search_fields = ("first_name", "last_name", "email")
     list_filter = ("date", "occupation")
+    ordering = ("first_name",)
 
-admin.site.register(Form)
+admin.site.register(Form, AdminForm)
