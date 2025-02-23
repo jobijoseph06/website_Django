@@ -7,3 +7,4 @@ class ApplicationForm(forms.Form):
     email = forms.EmailField()
     date = forms.DateField()
     occupation = forms.CharField(max_length=80)
+    resume = forms.FileField(required=True)

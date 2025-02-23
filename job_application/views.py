@@ -13,10 +13,12 @@ def index(request):
             email = form.cleaned_data["email"]
             date = form.cleaned_data["date"]
             occupation = form.cleaned_data["email"]
+            resume = form.cleaned_data["resume"]
 
             #creating the model instance
             Form.objects.create(first_name=first_name, last_name=last_name,
-                                email= email, date= date, occupation=occupation)
+                                email= email, date= date, occupation=occupation,
+                                resume=resume)
             #email part
             message_body = f"A new job application was submitted. Thank you, {first_name} {last_name}."
             email_message = EmailMessage("Form submission confirmation", message_body, to=[email])
@@ -28,6 +30,9 @@ def index(request):
 
 
     return render(request, "index.html")
+
+def about(request):
+    return render(request, "about.html")
 
 
 
