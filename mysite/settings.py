@@ -136,6 +136,6 @@ EMAIL_HOST_USER = 'bear062005@gmail.com'
 EMAIL_HOST_PASSWORD = 'xchd vsnx axnf zqwc'
 
 #resume file handle
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .forms import ApplicationForm
-from .models import Form
 from django.contrib import messages
 from django.core.mail import EmailMessage
 
@@ -8,28 +7,21 @@ def index(request):
     if request.method == "POST":
         form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
-            email = form.cleaned_data["email"]
-            date = form.cleaned_data["date"]
-            occupation = form.cleaned_data["occupation"]
-            resume = form.cleaned_data["resume"]
+            application = form.save()  # ✅ Save the form once (prevents duplicates)
 
-            #creating the model instance
-            Form.objects.create(first_name=first_name, last_name=last_name,
-                                email= email, date= date, occupation=occupation,
-                                resume=resume)
-            #email part
-            message_body = f"A new job application was submitted. Thank you, {first_name} {last_name}."
-            email_message = EmailMessage("Form submission confirmation", message_body, to=[email])
+            # Email confirmation
+            message_body = f"A new job application was submitted. Thank you, {application.first_name} {application.last_name}."
+            email_message = EmailMessage("Form submission confirmation", message_body, to=[application.email])
             email_message.send()
 
-
-            #message
             messages.success(request, "Form submitted successfully")
+        else:
+            messages.error(request, "Error submitting form. Please check your inputs.")
 
+    else:
+        form = ApplicationForm()
 
-    return render(request, "index.html")
+    return render(request, "index.html", {"form": form})
 
 def about(request):
     return render(request, "about.html")

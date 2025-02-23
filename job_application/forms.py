@@ -1,10 +1,7 @@
 from django import forms
+from .models import Form  # Import your model
 
-
-class ApplicationForm(forms.Form):
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
-    date = forms.DateField()
-    occupation = forms.CharField(max_length=80)
-    resume = forms.FileField(required=True)
+class ApplicationForm(forms.ModelForm):  # ✅ Use ModelForm
+    class Meta:
+        model = Form
+        fields = ['first_name', 'last_name', 'email', 'date', 'occupation', 'resume']
